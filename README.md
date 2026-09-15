@@ -49,7 +49,7 @@ The first Terraform lab was used to validate the local Infrastructure-as-Code en
 
 The lab focused on understanding Terraform's declarative workflow, provider initialization, resource deployment, state management, drift detection, and reconciliation.
 
-### Terraform Project Structure
+### Terraform Documentation Structure
 
 The Terraform configuration was separated into the following files:
 
@@ -221,3 +221,48 @@ No production passwords, API keys, or sensitive credentials were used during tes
 The Azure subscription is connected to an institution-managed Microsoft Entra tenant where student accounts do not have Entra administrative privileges.
 
 The Documentation therefore avoids unnecessary tenant-level identity configuration and uses Azure resource-level RBAC and managed identities where possible.
+
+
+## Private Azure Storage
+
+### Objective
+
+Azure Storage was deployed using Terraform with public network access disabled and private connectivity provided through Azure Private Link.
+
+### Storage Security
+
+The Storage Account was configured with:
+
+- Standard performance tier
+- Locally redundant storage
+- HTTPS-only traffic
+- Minimum TLS version 1.2
+- Public blob access disabled
+- Public network access disabled
+
+### Private Connectivity
+
+A dedicated subnet was created for private endpoints:
+
+`snet-private-endpoints - 10.20.3.0/24`
+
+A private endpoint was created for the Storage Account Blob service.
+
+The private endpoint received an IP address from the private endpoint subnet, allowing Storage traffic to remain within the Azure virtual network.
+
+### Private DNS
+
+The following Private DNS zone was created:
+
+`privatelink.blob.core.windows.net`
+
+The zone was linked to the Block 2 virtual network so Storage Blob hostnames can resolve to the private endpoint rather than the public endpoint.
+
+### Validation
+
+The following controls were validated in the Azure Portal:
+
+- Public network access was disabled.
+- The Storage private endpoint connection was approved.
+- The private endpoint received a private IP address.
+- The Private DNS zone was linked to the virtual network.
