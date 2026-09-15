@@ -3,7 +3,7 @@ Secure Azure infrastructure built with Terraform, OIDC federation, AKS, policy-a
 
 # Azure Security Engineering with Terraform
 
-## Project Overview
+## Documentation Overview
 
 This project documents the implementation of Caleb's Block 2 cloud security roadmap using Microsoft Azure, Terraform, GitHub Actions, Kubernetes and policy-as-code.
 
@@ -36,6 +36,6 @@ The objective is to build and secure Azure infrastructure using declarative infr
 
 Azure cost monitoring was configured before infrastructure deployment. Expensive resources such as AKS will only be deployed when required for testing and will be destroyed after validation to conserve Azure student credits.
 
-## Project Status
+## Documentation Status
 
 Block 2 implementation in progress.
