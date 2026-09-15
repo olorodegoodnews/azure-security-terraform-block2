@@ -172,3 +172,52 @@ The resources were successfully deployed and verified in the Azure Portal.
 The networking configuration is managed through Terraform rather than manual Azure Portal deployment.
 
 This allows the network architecture to be reproduced consistently and helps detect future configuration drift.
+
+
+## Azure Key Vault with RBAC
+
+### Objective
+
+Azure Key Vault was deployed using Terraform to provide secure storage for secrets while using Azure Role-Based Access Control for authorization.
+
+The Key Vault uses Azure RBAC rather than the legacy Key Vault access policy model.
+
+### Terraform Configuration
+
+The Key Vault was configured with:
+
+- Standard pricing tier
+- Azure RBAC authorization enabled
+- Soft delete enabled
+- Terraform-managed resource tags
+- A globally unique Key Vault name generated using the Terraform Random provider
+
+The configuration included:
+
+`enable_rbac_authorization = true`
+
+### Azure RBAC
+
+The existing authenticated Azure identity was assigned the built-in:
+
+`Key Vault Secrets Officer`
+
+role at the Key Vault resource scope.
+
+The role assignment was created through Terraform and limited to the Key Vault rather than granting broader tenant-level permissions.
+
+No Microsoft Entra administrative roles were required for this implementation.
+
+### Access Validation
+
+RBAC access was validated by creating a test secret inside the Key Vault.
+
+The successful secret creation confirmed that the assigned Azure RBAC role provided the expected Key Vault data-plane permissions.
+
+No production passwords, API keys, or sensitive credentials were used during testing.
+
+### Identity Constraint
+
+The Azure subscription is connected to an institution-managed Microsoft Entra tenant where student accounts do not have Entra administrative privileges.
+
+The Documentation therefore avoids unnecessary tenant-level identity configuration and uses Azure resource-level RBAC and managed identities where possible.
