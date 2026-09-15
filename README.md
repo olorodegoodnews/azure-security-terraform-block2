@@ -120,3 +120,55 @@ This demonstrated the core Infrastructure-as-Code model used throughout Block 2:
 - Azure CLI authentication is currently used for local Terraform deployments.
 - GitHub OIDC federation will be implemented later to remove the need for stored deployment credentials.
 - Cost monitoring was configured before deploying chargeable Azure infrastructure.
+
+
+## Secure Azure Networking
+
+### Objective
+
+Terraform was used to create the network foundation for the Block 2 Azure environment.
+
+The network was designed to separate application and container workloads while leaving room for private connectivity later in the project.
+
+### Network Architecture
+
+The following network resources were deployed:
+
+- Virtual Network: `vnet-block2-security-lab`
+- Address Space: `10.20.0.0/16`
+- Application Subnet: `snet-app` - `10.20.1.0/24`
+- AKS Subnet: `snet-aks` - `10.20.2.0/24`
+- Network Security Group: `nsg-block2-app`
+
+A separate private endpoint subnet will be introduced later when private connectivity is configured for Azure Storage.
+
+### Network Security
+
+The application subnet was associated with the `nsg-block2-app` Network Security Group.
+
+A custom inbound rule was configured to allow HTTPS traffic on TCP port 443.
+
+Other unsolicited inbound traffic remains restricted by Azure's default Network Security Group rules.
+
+### Terraform Validation
+
+The networking configuration was formatted and validated before deployment.
+
+Terraform produced the following deployment plan:
+
+`Plan: 5 to add, 0 to change, 0 to destroy.`
+
+The plan included:
+
+- One Virtual Network
+- Two Subnets
+- One Network Security Group
+- One NSG-to-subnet association
+
+The resources were successfully deployed and verified in the Azure Portal.
+
+### Infrastructure-as-Code
+
+The networking configuration is managed through Terraform rather than manual Azure Portal deployment.
+
+This allows the network architecture to be reproduced consistently and helps detect future configuration drift.
