@@ -39,3 +39,84 @@ Azure cost monitoring was configured before infrastructure deployment. Expensive
 ## Documentation Status
 
 Block 2 implementation in progress.
+
+
+## Terraform Foundation
+
+### Objective
+
+The first Terraform lab was used to validate the local Infrastructure-as-Code environment before deploying the main Block 2 infrastructure.
+
+The lab focused on understanding Terraform's declarative workflow, provider initialization, resource deployment, state management, drift detection, and reconciliation.
+
+### Terraform Project Structure
+
+The Terraform configuration was separated into the following files:
+
+- `versions.tf` - Defines the required Terraform and AzureRM provider versions.
+- `provider.tf` - Configures the Azure Resource Manager provider.
+- `variables.tf` - Defines reusable configuration values such as the Azure region and resource group name.
+- `main.tf` - Contains the Azure resource definitions.
+- `outputs.tf` - Displays useful information after deployment.
+
+The primary deployment region for this project is **Poland Central**.
+
+### Initial Terraform Workflow
+
+The following Terraform workflow was used:
+
+`terraform fmt` → `terraform init` → `terraform validate` → `terraform plan` → `terraform apply`
+
+- `terraform fmt` formatted the Terraform configuration.
+- `terraform init` initialized the working directory and downloaded the AzureRM provider.
+- `terraform validate` verified that the configuration was syntactically valid.
+- `terraform plan` previewed the infrastructure changes before deployment.
+- `terraform apply` created the declared infrastructure in Azure.
+
+The initial deployment created the following Azure resource:
+
+- Resource Group: `rg-block2-security-lab`
+- Region: Poland Central
+- Managed by: Terraform
+
+### Terraform State
+
+Terraform created a local state file to track the relationship between the Terraform configuration and the deployed Azure resources.
+
+The Terraform state file was excluded from Git using `.gitignore` because state files may contain sensitive infrastructure information.
+
+Remote state storage will be implemented later in the project as part of the Block 2 security requirements.
+
+### Drift Detection and Reconciliation
+
+To demonstrate configuration drift, the `environment` tag on the resource group was manually changed in the Azure Portal from:
+
+`lab`
+
+to:
+
+`manual-change`
+
+The Terraform configuration still declared the expected value as:
+
+`lab`
+
+Running `terraform plan` detected that the deployed Azure resource no longer matched the declared Terraform configuration.
+
+Terraform reported:
+
+`Plan: 0 to add, 1 to change, 0 to destroy.`
+
+Running `terraform apply` reconciled the resource and restored the environment tag to the expected value.
+
+This demonstrated the core Infrastructure-as-Code model used throughout Block 2:
+
+**Desired State → Drift Detection → Reconciliation**
+
+### Security Considerations
+
+- Terraform state files are excluded from source control.
+- No Azure credentials or secrets are stored in the repository.
+- Azure CLI authentication is currently used for local Terraform deployments.
+- GitHub OIDC federation will be implemented later to remove the need for stored deployment credentials.
+- Cost monitoring was configured before deploying chargeable Azure infrastructure.
