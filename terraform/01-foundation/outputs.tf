@@ -27,3 +27,13 @@ output "app_network_security_group_name" {
   description = "Name of the application Network Security Group"
   value       = azurerm_network_security_group.app.name
 }
+
+output "key_vault_name" {
+  description = "Name of the Block 2 Azure Key Vault"
+  value       = azurerm_key_vault.block2.name
+}
+
+output "key_vault_uri" {
+  description = "URI of the Block 2 Azure Key Vault"
+  value       = azurerm_key_vault.block2.vault_uri
+}
