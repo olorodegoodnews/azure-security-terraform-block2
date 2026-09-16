@@ -28,5 +28,5 @@ resource "azurerm_key_vault" "block2" {
 resource "azurerm_role_assignment" "current_user_keyvault" {
   scope                = azurerm_key_vault.block2.id
   role_definition_name = "Key Vault Secrets Officer"
-  principal_id         = data.azurerm_client_config.current.object_id
+  principal_id         = var.keyvault_secrets_officer_principal_id
 }
