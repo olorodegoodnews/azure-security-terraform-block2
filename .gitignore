@@ -1,4 +1,3 @@
-@"
 # Terraform local working directories
 **/.terraform/
 
@@ -21,4 +20,3 @@ crash.*.log
 # Local Terraform CLI configuration
 .terraformrc
 terraform.rc
-"@ | Set-Content .gitignore
