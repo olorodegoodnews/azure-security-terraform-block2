@@ -76,8 +76,8 @@ jobs:
       - name: Terraform Plan
         run: terraform plan -input=false -no-color
 
-              - name: Trivy Terraform Security Scan
-        uses: aquasecurity/trivy-action@v0.36.0
+       - name: Trivy Terraform Security Scan
+        uses: aquasecurity/trivy-action@0.36.0
         with:
           scan-type: "config"
           scan-ref: "terraform/01-foundation"
