@@ -5,6 +5,9 @@ resource "random_string" "storage_suffix" {
 }
 
 resource "azurerm_storage_account" "block2" {
+  #checkov:skip=CKV_AZURE_33:Azure Queue Storage is not used by this project, so Queue service logging is not enabled.
+  #checkov:skip=CKV_AZURE_206:LRS is intentionally used for this non-production student lab to conserve Azure credits.
+  #checkov:skip=CKV2_AZURE_1:Customer-managed keys are not required because this lab does not store production or critical data.
   name                     = "stblock2${random_string.storage_suffix.result}"
   resource_group_name      = azurerm_resource_group.block2.name
   location                 = azurerm_resource_group.block2.location
@@ -16,6 +19,17 @@ resource "azurerm_storage_account" "block2" {
   min_tls_version                 = "TLS1_2"
   allow_nested_items_to_be_public = false
   public_network_access_enabled   = false
+  shared_access_key_enabled       = false
+
+  blob_properties {
+    delete_retention_policy {
+      days = 7
+    }
+
+    container_delete_retention_policy {
+      days = 7
+    }
+  }
 
   tags = {
     environment = "lab"

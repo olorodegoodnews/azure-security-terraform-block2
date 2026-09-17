@@ -7,6 +7,11 @@ resource "random_string" "keyvault_suffix" {
 }
 
 resource "azurerm_key_vault" "block2" {
+  #checkov:skip=CKV_AZURE_189:Public network access retained temporarily because this lab does not have a private runner or VPN path to the Key Vault.
+  #checkov:skip=CKV_AZURE_109:Key Vault firewall restrictions are deferred until a private access path is available.
+  #checkov:skip=CKV_AZURE_110:Purge protection is intentionally disabled in this disposable student lab so the environment can be fully destroyed.
+  #checkov:skip=CKV_AZURE_42:Recoverability requirement is accepted because purge protection is intentionally disabled for lab teardown.
+  #checkov:skip=CKV2_AZURE_32:A Key Vault private endpoint is outside the current Block 2 requirement; private connectivity is implemented for Azure Storage.
   name                = "kv-block2-${random_string.keyvault_suffix.result}"
   location            = azurerm_resource_group.block2.location
   resource_group_name = azurerm_resource_group.block2.name

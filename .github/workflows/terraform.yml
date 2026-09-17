@@ -7,7 +7,6 @@ on:
     paths:
       - "terraform/01-foundation/**"
       - ".github/workflows/terraform.yml"
-
   workflow_dispatch:
 
 permissions:
@@ -16,7 +15,7 @@ permissions:
 
 jobs:
   terraform:
-    name: Terraform Plan
+    name: Terraform Security and Plan
     runs-on: ubuntu-latest
 
     defaults:
@@ -29,7 +28,6 @@ jobs:
       ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
       ARM_USE_OIDC: true
       ARM_USE_AZUREAD: true
-
       TF_VAR_keyvault_secrets_officer_principal_id: ${{ vars.KEYVAULT_SECRETS_OFFICER_PRINCIPAL_ID }}
 
     steps:
@@ -38,6 +36,17 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Checkov
+        run: python -m pip install checkov==3.3.18
+
+      - name: Checkov Security Scan
+        run: checkov -d . --framework terraform
 
       - name: Azure Login with OIDC
         uses: azure/login@v2
