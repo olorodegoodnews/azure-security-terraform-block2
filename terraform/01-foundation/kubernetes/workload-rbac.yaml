@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: block2-app
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: block2-workload-sa
+  namespace: block2-app
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: block2-workload-reader
+  namespace: block2-app
+rules:
+  - apiGroups: [""]
+    resources:
+      - pods
+      - services
+      - configmaps
+    verbs:
+      - get
+      - list
+      - watch
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: block2-workload-sa
+  namespace: block2-app
+  annotations:
+    azure.workload.identity/client-id: "3da5b504-224a-4d57-9535-33bbc2776329"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: block2-workload-reader
