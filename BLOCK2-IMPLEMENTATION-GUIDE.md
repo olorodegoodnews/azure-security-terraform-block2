@@ -695,8 +695,6 @@ I configured the `DeployIfNotExists` policy assignment with a system-assigned ma
 
 I assigned the policy identity the `Monitoring Contributor` and `Log Analytics Contributor` roles so that it had the permissions required to deploy diagnostic settings and connect them to the Log Analytics workspace.
 
-![DeployIfNotExists Policy Assignment](screenshots/93-deployifnotexists-policy-assignment.png.png)
-
 ---
 
 # 61. Azure Policy Remediation
