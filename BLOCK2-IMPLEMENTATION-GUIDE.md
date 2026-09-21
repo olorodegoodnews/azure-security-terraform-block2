@@ -818,13 +818,19 @@ I used Terraform to manage the infrastructure, Azure RBAC to manage permissions,
 
 ---
 
-# Project Cleanup
+# Environment Cleanup
 
-I treated the AKS environment as temporary infrastructure because the cluster node consumes Azure student credit.
+After completing the implementation, validation, and evidence collection, I removed the temporary AKS environment to prevent the cluster node from continuing to consume my Azure for Students credit.
 
-After completing the configuration, testing, screenshots, and GitHub documentation, I planned to remove the temporary AKS compute resources while keeping the Terraform configuration in GitHub.
+I used a targeted Terraform destroy operation so that I could remove the AKS cluster without deleting the networking, Storage Account, Key Vault, Azure Policies, Log Analytics workspace, or other persistent security resources created during the project.
 
-This allows me to recreate the secured AKS environment later without continuously paying for the running compute resources.
+The AKS deletion also removed the federated credential that depended on the AKS OIDC issuer. I then removed the unused workload managed identity and its Key Vault role assignment so that unnecessary Azure permissions were not left behind after the Kubernetes workload was removed.
+
+I verified the cleanup using Azure CLI and Terraform state. The Terraform source code remains in GitHub, which means I can recreate the AKS environment and its security controls when required.
+
+![AKS Cleanup](screenshots/103-aks-cleanup-destroy-complete.png)
+
+![Post Cleanup Verification](screenshots/104-post-aks-cleanup-verification.png)
 
 ---
 
