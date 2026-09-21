@@ -401,11 +401,7 @@ Trivy identified Critical findings relating to Azure Key Vault and Storage netwo
 
 I remediated the Storage finding by configuring explicit Storage network rules with the default action set to `Deny`. I documented the Key Vault network finding as a temporary lab exception because the lab did not have a private runner or VPN path to the Key Vault.
 
-![Trivy IaC Security Scan](screenshots/60-trivy-iac-security-scan.png.png)
-
 ![Trivy Remediation Plan](screenshots/61-trivy-remediation-terraform-plan.png.png)
-
-![Trivy Remediation Apply](screenshots/62-trivy-remediation-apply-success.png.png)
 
 ---
 
@@ -677,6 +673,8 @@ using Terraform.
 
 I used this workspace as the monitoring destination for the Key Vault diagnostic logs deployed through my custom `DeployIfNotExists` Azure Policy.
 
+![DeployIfNotExists Policy Assignment](screenshots/93-deployifnotexists-policy-assignment.png.png)
+
 ---
 
 # 59. DeployIfNotExists Policy
@@ -750,10 +748,6 @@ I used the recommendations to understand which Azure controls could improve the 
 After implementing the Policy-as-Code and diagnostic logging controls, I reviewed Defender for Cloud again to check the updated resource security posture.
 
 Where reassessment information was available, I compared the result with my earlier Defender baseline.
-
-![Defender Recommendation Remediation](screenshots/98-defender-recommendation-remediated.png.png)
-
-![Secure Score After Review](screenshots/99-defender-secure-score-after-remediation.png.png)
 
 ---
 
