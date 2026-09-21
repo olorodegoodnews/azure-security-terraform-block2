@@ -16,7 +16,7 @@ I installed Terraform on my Windows system and configured Visual Studio Code wit
 
 I used Terraform commands such as `terraform init`, `terraform fmt`, `terraform validate`, `terraform plan`, and `terraform apply` throughout the project.
 
-![Terraform Configuration](screenshots/15-terraform-networking-config.png.png)
+![Terraform Configuration](screenshots/15-terraform-networking-configuration-created.png.png)
 
 ---
 
@@ -36,11 +36,11 @@ I created the Virtual Network `vnet-block2-security-lab` using Terraform and con
 
 I used the VNet to provide network isolation for the different workloads in the environment and confirmed the deployment from the Azure Portal.
 
-![Networking Terraform Plan](screenshots/16-networking-plan.png.png)
+![Networking Terraform Plan](screenshots/16-terraform-networking-plan.png.png)
 
-![Networking Terraform Apply](screenshots/17-networking-apply-success.png.png)
+![Networking Terraform Apply](screenshots//17-terraform-networking-apply-success.png.png)
 
-![Virtual Network and Subnets](screenshots/18-vnet-subnets.png.png)
+![Virtual Network and Subnets](screenshots//18-vnet-and-subnets-created.png.png)
 
 ---
 
@@ -80,7 +80,7 @@ I created the Network Security Group `nsg-block2-app` using Terraform and associ
 
 I configured the NSG so that application network traffic could be controlled at subnet level and verified the association in the Azure Portal.
 
-![NSG Association](screenshots/19-nsg-association.png.png)
+![NSG Association](screenshots/19-nsg-associated-with-app-subnet.png.png)
 
 ---
 
@@ -106,13 +106,15 @@ I created an Azure Key Vault using Terraform and configured it to use Azure RBAC
 
 I enabled soft delete and assigned the required Key Vault RBAC permissions to my existing Azure account so that I could test secrets without creating additional Entra users or directory roles.
 
-![Key Vault Terraform Init](screenshots/20-keyvault-provider-init.png.png)
+![Key Vault Terraform Init](screenshots//20-keyvault-provider-initialized.png.png)
 
-![Key Vault Terraform Plan](screenshots/21-keyvault-plan.png.png)
+![Key Vault Terraform Plan](screenshots//21-keyvault-rbac-terraform-plan.png.png)
 
-![Key Vault Terraform Apply](screenshots/22-keyvault-apply.png.png)
+![Key Vault Terraform Apply](screenshots///22-keyvault-rbac-apply-success.png.png
+)
 
-![Key Vault Created](screenshots/23-keyvault-created.png.png)
+![Key Vault Created](screenshots//23-keyvault-created-with-terraform.png.png
+)
 
 ---
 
@@ -122,7 +124,8 @@ I assigned the `Key Vault Secrets Officer` role using Terraform to the existing 
 
 I used Azure RBAC instead of storing credentials directly in the Terraform configuration. I confirmed the role assignment from the Key Vault Access Control page in Azure.
 
-![Key Vault RBAC](screenshots/24-keyvault-role.png.png)
+![Key Vault RBAC](screenshots//24-keyvault-rbac-role-assignment.png.png
+)
 
 ---
 
@@ -132,7 +135,8 @@ I created a test secret in the Key Vault to confirm that my RBAC configuration w
 
 The successful secret operation confirmed that my account had the permissions required for Key Vault secret management.
 
-![Key Vault Secret Test](screenshots/25-secret-rbac-test.png.png)
+![Key Vault Secret Test](screenshots//25-keyvault-secret-rbac-test.png.png
+)
 
 ---
 
@@ -142,9 +146,11 @@ I created the application Storage Account using Terraform and configured it with
 
 I disabled public network access and Shared Key authentication, enforced HTTPS-only traffic and TLS 1.2, disabled anonymous blob access, and enabled blob and container soft-delete protection.
 
-![Storage Account](screenshots/28-storage-account.png.png)
+![Storage Account](screenshots//28-storage-account-created-with-terraform.png.png
+)
 
-![Storage Public Network Disabled](screenshots/29-public-network-disabled.png.png)
+![Storage Public Network Disabled](screenshots//29-storage-public-network-access-disabled.png.png)
+
 
 ---
 
@@ -162,13 +168,14 @@ I created a Private Endpoint for the Storage Blob service using Terraform.
 
 The Private Endpoint connected the Storage Account to `snet-private-endpoints`, allowing Blob Storage traffic to use a private IP address instead of the public Storage endpoint.
 
-![Storage Private Endpoint Plan](screenshots/26-storage-private-endpoint-plan.png.png)
+![Storage Private Endpoint Plan](screenshots//26-storage-private-endpoint-terraform-plan.png.png
+)
 
-![Storage Private Endpoint Apply](screenshots/27-storage-private-endpoint-apply.png.png)
+![Storage Private Endpoint Apply](screenshots//27-storage-private-endpoint-apply-success.png.png
+)
 
-![Private Endpoint Approved](screenshots/30-private-endpoint-approved.png.png)
-
-![Private Endpoint IP](screenshots/31-private-endpoint-ip.png.png)
+![Private Endpoint Approved](screenshots//30-storage-private-endpoint-approved.png.png
+)
 
 ---
 
@@ -182,7 +189,8 @@ using Terraform.
 
 I linked the Private DNS zone to `vnet-block2-security-lab` so that resources inside the VNet could resolve the Storage Account to its private endpoint IP address.
 
-![Private DNS VNet Link](screenshots/32-private-dns-vnet-link.png.png)
+![Private DNS VNet Link](screenshots//32-private-dns-zone-vnet-link.png.png
+)
 
 ---
 
@@ -192,13 +200,11 @@ I created a dedicated resource group named `rg-block2-tfstate` for Terraform rem
 
 I created the Storage Account `sttfstateba08a6` and the `tfstate` container, then migrated the existing local Terraform state into Azure Storage.
 
-![Remote State Bootstrap Configuration](screenshots/33-remote-state-bootstrap-config.png.png)
+![Remote State Bootstrap Configuration](screenshots//33-remote-state-bootstrap-configuration.png.png
+)
 
-![Remote State Initialization](screenshots/34-bootstrap-init.png.png)
-
-![Remote State Plan](screenshots/35-bootstrap-plan.png.png)
-
-![Remote State Apply](screenshots/36-backend-apply.png.png)
+![Remote State Plan](screenshots//35-remote-state-bootstrap-plan.png.png
+)
 
 ---
 
@@ -208,9 +214,11 @@ I configured the Terraform backend to use Microsoft Entra authentication instead
 
 After completing the bootstrap process, I disabled Shared Key authentication on the state Storage Account and used Azure RBAC for access to the state blob.
 
-![Shared Key Disabled](screenshots/37-shared-key-disabled.png.png)
+![Shared Key Disabled](screenshots//37-tfstate-shared-key-disabled.png.png
+)
 
-![Terraform State RBAC](screenshots/38-tfstate-rbac.png.png)
+![Terraform State RBAC](screenshots//38-tfstate-rbac-role-assignment.png.png)
+
 
 ---
 
@@ -220,7 +228,8 @@ I added a `CanNotDelete` management lock to the Terraform state Storage Account.
 
 I used the lock to reduce the risk of accidentally deleting the Storage Account containing my infrastructure state.
 
-![Terraform State Management Lock](screenshots/39-deletion-lock.png.png)
+![Terraform State Management Lock](screenshots//39-tfstate-deletion-lock-enabled.png.png
+)
 
 ---
 
@@ -230,12 +239,11 @@ I migrated my existing Terraform state to the remote backend using `terraform in
 
 After the migration, I ran `terraform state list` and `terraform plan` to confirm that Terraform still recognized the deployed infrastructure and that no unintended changes were introduced.
 
-![Terraform State Migrated](screenshots/40-state-migrated.png.png)
+![Terraform State Migrated](screenshots//40-terraform-state-migrated-to-azure.png.png
+)
 
-![Remote State No Changes](screenshots/41-remote-state-no-change.png.png)
-
-![Terraform State Blob](screenshots/42-state-blob-in-azure.png.png)
-
+![Remote State No Changes](screenshots//41-remote-state-no-change-validation.png.png
+)
 ---
 
 # 21. GitHub Actions Managed Identity
@@ -256,7 +264,8 @@ I configured a federated identity credential between Azure and my GitHub reposit
 
 I configured the federation for the `main` branch of `olorodegoodnews/azure-security-terraform-block2`, allowing GitHub to request an OIDC token and exchange it for Azure authentication.
 
-![GitHub OIDC Federated Credential](screenshots/43-oidc-federated-credential.png.png)
+![GitHub OIDC Federated Credential](screenshots//43-github-oidc-federated-credential.png.png
+)
 
 ---
 
@@ -266,9 +275,11 @@ I assigned the GitHub managed identity the Azure permissions required to run Ter
 
 I scoped the `Contributor` role to `rg-block2-security-lab` and gave the identity the required Storage data access for the Terraform remote-state backend instead of granting broad subscription-level access.
 
-![GitHub Managed Identity Contributor](screenshots/44-managed-identity-contributor.png.png)
+![GitHub Managed Identity Contributor](screenshots//44-github-managed-identity-contributor-role.png.png
+)
 
-![GitHub Managed Identity State Access](screenshots/45-managed-identity-tfstate-access.png.png)
+![GitHub Managed Identity State Access](screenshots//45-github-managed-identity-tfstate-access.png.png
+)
 
 ---
 
@@ -278,7 +289,8 @@ I replaced the runtime-dependent Key Vault role principal with a Terraform varia
 
 This ensured that both my local Terraform runs and GitHub Actions used the same intended Key Vault RBAC principal and prevented CI from trying to change the role assignment to the GitHub identity.
 
-![Stable Key Vault Principal](screenshots/46-stable-keyvault-principal-no-change.png.png)
+![Stable Key Vault Principal](screenshots//46-keyvault-rbac-stable-principal-validation.png.png
+)
 
 ---
 
@@ -288,7 +300,8 @@ I configured GitHub repository variables for values such as the Azure Client ID,
 
 I used repository variables rather than storing passwords, client secrets, Storage keys, or SAS tokens.
 
-![GitHub Repository Variables](screenshots/47-github-variables.png.png)
+![GitHub Repository Variables](screenshots//47-github-actions-repository-variables.png.png
+)
 
 ---
 
@@ -298,11 +311,8 @@ I created a GitHub Actions workflow to automatically validate my Terraform confi
 
 The workflow performs repository checkout, Terraform setup, Azure OIDC login, formatting checks, backend initialization, Terraform validation, security scanning, and Terraform planning.
 
-![GitHub Workflow](screenshots/48-workflow-created.png.png)
-
-![OIDC Terraform Plan](screenshots/49-oidc-terraform-plan-success.png.png)
-
-![GitHub Actions Pipeline](screenshots/50-oidc-pipeline-success.png.png)
+![OIDC Terraform Plan](screenshots//49-github-actions-oidc-terraform-plan-success.png.png
+)
 
 ---
 
@@ -320,8 +330,6 @@ My initial scan returned:
 
 I reviewed the findings individually instead of automatically suppressing all failed checks.
 
-![Initial Checkov Scan](screenshots/51-checkov-initial-scan.png.png)
-
 ---
 
 # 28. Checkov Security Remediation
@@ -329,10 +337,6 @@ I reviewed the findings individually instead of automatically suppressing all fa
 I remediated several findings identified by Checkov.
 
 I disabled Storage Shared Key authorization, enabled Storage blob and container soft delete, and associated Network Security Groups with the AKS and private endpoint subnets.
-
-![Checkov Security Remediation Plan](screenshots/52-checkov-security-remediation-plan.png.png)
-
-![Checkov Security Remediation Apply](screenshots/53-checkov-security-remediation-apply.png.png)
 
 ---
 
@@ -342,7 +346,8 @@ I reran Checkov after applying the fixes.
 
 The number of passed checks increased and the number of failed findings decreased, confirming that the Terraform security improvements were detected by the scanner.
 
-![Checkov Post Remediation](screenshots/54-checkov-post-remediation-scan.png.png)
+![Checkov Post Remediation](screenshots//54-checkov-post-remediation-scan.png.png
+)
 
 ---
 
