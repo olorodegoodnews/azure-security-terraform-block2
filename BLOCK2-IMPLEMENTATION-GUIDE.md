@@ -828,9 +828,9 @@ The AKS deletion also removed the federated credential that depended on the AKS 
 
 I verified the cleanup using Azure CLI and Terraform state. The Terraform source code remains in GitHub, which means I can recreate the AKS environment and its security controls when required.
 
-![AKS Cleanup](screenshots/103-aks-cleanup-destroy-complete.png)
+![AKS Cleanup](screenshots/103-aks-cleanup-destroy-complete.png.png)
 
-![Post Cleanup Verification](screenshots/104-post-aks-cleanup-verification.png)
+![Post Cleanup Verification](screenshots/104-post-aks-cleanup-verification.png.png)
 
 ---
 
