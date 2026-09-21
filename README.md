@@ -11,7 +11,7 @@ I used Terraform as the main Infrastructure-as-Code tool and kept the infrastruc
 
 The environment includes Azure networking, Storage, Key Vault, AKS, Workload Identity, Kubernetes RBAC, NetworkPolicy, GitHub Actions OIDC, Infrastructure-as-Code scanning, Azure Policy, Log Analytics, and Defender for Cloud validation.
 
-Detailed implementation steps and screenshots are documented separately in:
+Detailed implementation steps and screenshots are documented in:
 
 [BLOCK2-IMPLEMENTATION-GUIDE.md](./BLOCK2-IMPLEMENTATION-GUIDE.md)
 
