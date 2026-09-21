@@ -2,11 +2,11 @@
 
 ## Overview
 
-In this project, I built and secured an Azure environment using Terraform, GitHub Actions, Azure Kubernetes Service (AKS), Azure Policy, Azure RBAC, private networking, and Infrastructure-as-Code security scanning.
+In this documentation, I built and secured an Azure environment using Terraform, GitHub Actions, Azure Kubernetes Service (AKS), Azure Policy, Azure RBAC, private networking, and Infrastructure-as-Code security scanning.
 
 I used Terraform as the main Infrastructure-as-Code tool so that the infrastructure could be deployed, reviewed, version-controlled, and recreated consistently. I also integrated GitHub Actions with Azure using OIDC so that my CI/CD pipeline did not require stored Azure client secrets.
 
-Throughout the project, I validated each major configuration in Azure, Kubernetes, Terraform, or GitHub Actions and captured screenshots as implementation evidence.
+Throughout the Documentation, I validated each major configuration in Azure, Kubernetes, Terraform, or GitHub Actions and captured screenshots as implementation evidence.
 
 ---
 
